@@ -1,17 +1,19 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNumber, validateSync } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, validateSync } from 'class-validator';
+import * as Joi from 'joi';
 
 enum Environment {
   Development = 'development',
   Production = 'production',
   Test = 'test',
-  Provision = 'provision',
 }
 
-class EnvironmentVariables {
+export class EnvironmentVariables {
   @IsEnum(Environment)
+  @IsNotEmpty()
   NODE_ENV: Environment;
 
+  @IsNotEmpty()
   @IsNumber()
   PORT: number;
 }
@@ -29,3 +31,11 @@ export function validate(config: Record<string, unknown>) {
   }
   return validatedConfig;
 }
+
+export const validationSchema = Joi.object({
+  NODE_ENV: Joi.string()
+    .valid('development', 'production', 'test')
+    .default('development'),
+
+  PORT: Joi.number().default(7100),
+});
