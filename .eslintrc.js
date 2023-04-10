@@ -7,15 +7,18 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint/eslint-plugin',
+    'prettier',
     'simple-import-sort',
     'unused-imports',
     'sonarjs',
   ],
   extends: [
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:sonarjs/recommended',
-    // 'prettier',
+    'prettier',
   ],
   root: true,
   env: {
@@ -28,7 +31,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
-    //#region  //*=========== Import Sort ===========
     'simple-import-sort/exports': 'warn',
     'simple-import-sort/imports': [
       'warn',
@@ -57,10 +59,9 @@ module.exports = {
         ],
       },
     ],
-    //#endregion  //*======== Import Sort ===========
-
-    '@typescript-eslint/no-unused-vars': 'off',
+    'no-console': 'warn',
     'unused-imports/no-unused-imports': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'unused-imports/no-unused-vars': [
       'warn',
       {
@@ -70,5 +71,6 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'prettier/prettier': 'error',
   },
 };

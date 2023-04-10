@@ -33,8 +33,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0",
-    "prepare": "husky install"
+    "rxjs": "^7.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
