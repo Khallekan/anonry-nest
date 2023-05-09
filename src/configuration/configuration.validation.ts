@@ -1,8 +1,14 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsNumber, validateSync } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  validateSync,
+} from 'class-validator';
 import * as Joi from 'joi';
 
-enum Environment {
+export enum Environment {
   Development = 'development',
   Production = 'production',
   Test = 'test',
@@ -16,6 +22,34 @@ export class EnvironmentVariables {
   @IsNotEmpty()
   @IsNumber()
   PORT: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  POSTGRES_VERSION: number;
+
+  // @IsNotEmpty()
+  // @IsString()
+  // DATABASE_URL: string;
+
+  @IsNotEmpty()
+  @IsString()
+  POSTGRES_PASSWORD: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  POSTGRES_PORT: number;
+
+  @IsNotEmpty()
+  @IsString()
+  DATABASE_HOST: string;
+
+  @IsNotEmpty()
+  @IsString()
+  DATABASE_NAME: string;
+
+  @IsNotEmpty()
+  @IsString()
+  DATABASE_USER: string;
 }
 
 export function validate(config: Record<string, unknown>) {
@@ -38,4 +72,11 @@ export const validationSchema = Joi.object({
     .default('development'),
 
   PORT: Joi.number().default(7100),
+  POSTGRES_VERSION: Joi.number().required(),
+  // DATABASE_URL: Joi.string().required(),
+  POSTGRES_PASSWORD: Joi.string().required(),
+  POSTGRES_PORT: Joi.number().required(),
+  DATABASE_HOST: Joi.string().required(),
+  DATABASE_NAME: Joi.string().required(),
+  DATABASE_USER: Joi.string().required(),
 });

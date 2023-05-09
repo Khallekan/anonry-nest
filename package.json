@@ -9,7 +9,9 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "dotenv -e .env.dev -- nest start --watch",
+    "db:dev:start": "docker compose --env-file .env.dev up dev-db pg-admin -d",
+    "db:dev:remove": "docker compose --env-file .env.dev rm dev-db pg-admin -s -f -v",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --max-warnings=0",
@@ -19,7 +21,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "format:check": "prettier -c \"src/**/*.ts\" \"test/**/*.ts\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prestart:dev": "yarn db:dev:start"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -27,6 +30,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "joi": "^17.9.1",
@@ -52,6 +56,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
